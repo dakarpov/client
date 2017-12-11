@@ -6,8 +6,8 @@ class Train(object):
         self.position = json_train['position']
         self.speed = json_train['speed']
         self.player_id = json_train['player_id']
-        self.capacity = json_train['capacity']
-        self.product = json_train['product']
+        #self.capacity = json_train['capacity']
+        #self.product = json_train['product']
 
     def get_position(self):
         return self.position
