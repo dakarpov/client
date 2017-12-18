@@ -1,6 +1,7 @@
 from models.point import Point
 from models.line import Line
 
+
 class Map(object):
     def __init__(self, json_l0):
         self.point = set()
@@ -9,6 +10,7 @@ class Map(object):
             self.point.add(Point(point))
         for line in json_l0['line']:
             self.line.add(Line(line))
+        self.size = None
 
     def add_layer_10(self, json_l10):
         if not len(json_l10):
