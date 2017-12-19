@@ -12,6 +12,8 @@ BACKGROUND_COLOR = "#004400"
 PLATFORM_WIDTH = 32
 PLATFORM_HEIGHT = 32
 PLATFORM_COLOR = "#FF6262"
+CITY_COLOR = "#FF00FF"
+SHOP_COLOR = "#00FF00"
 multiplier = 3
 
 
@@ -33,6 +35,8 @@ class Game(object):
         # print(str(msg))
         _, msg = self.loop.run_until_complete(self.cl.getMap(0))
         self.map = Map(msg)
+        _, msg = self.loop.run_until_complete(self.cl.getMap(1))
+        self.map.add_layer_1(msg)
         _, msg = self.loop.run_until_complete(self.cl.getMap(10))
         self.map.add_layer_10(msg)
         # print(msg)
@@ -53,8 +57,9 @@ class Game(object):
         if not self.map.size:
             return 1
         for point in self.map.point:
-            pf = pygame.Surface((1, 1))
-            pf.fill(Color(PLATFORM_COLOR))
+            COLOR = PLATFORM_COLOR if not point.post else CITY_COLOR if point.post.type == 1 else SHOP_COLOR
+            pf = pygame.Surface((multiplier, multiplier))
+            pf.fill(Color(COLOR))
             self.screen.blit(pf, (point.x * multiplier, point.y * multiplier))
         pygame.display.update()
 
@@ -63,8 +68,8 @@ class Game(object):
         print("logout")
 
 
-game = Game('test-client18')
-n=10
+game = Game('test-client20')
+n = 10
 while n:
     game.update(n)
     n -= 1

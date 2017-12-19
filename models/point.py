@@ -4,7 +4,11 @@ class Point(object):
         self.post_id = json_point['post_id']
         self.x = None
         self.y = None
+        self.post = None
 
     def set_coordinates(self, x, y):
         self.x = x
         self.y = y
+
+    def set_post(self, post):
+        self.post = post
