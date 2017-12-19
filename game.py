@@ -14,6 +14,7 @@ PLATFORM_HEIGHT = 32
 PLATFORM_COLOR = "#FF6262"
 CITY_COLOR = "#FF00FF"
 SHOP_COLOR = "#00FF00"
+LINE_COLOR = (255,255,255)
 multiplier = 3
 
 
@@ -56,11 +57,16 @@ class Game(object):
     def draw(self):
         if not self.map.size:
             return 1
+        for line in self.map.line:
+            COLOR = LINE_COLOR
+            pygame.draw.line(self.screen, COLOR, (line.point[0].x * multiplier, line.point[0].y * multiplier),
+                             (line.point[1].x * multiplier, line.point[1].y * multiplier), 1)
         for point in self.map.point:
             COLOR = PLATFORM_COLOR if not point.post else CITY_COLOR if point.post.type == 1 else SHOP_COLOR
-            pf = pygame.Surface((multiplier, multiplier))
+            radius = 5
+            pf = pygame.Surface((radius, radius))
             pf.fill(Color(COLOR))
-            self.screen.blit(pf, (point.x * multiplier, point.y * multiplier))
+            self.screen.blit(pf, (point.x * multiplier - radius/multiplier, point.y * multiplier - radius/multiplier))
         pygame.display.update()
 
     def __del__(self):

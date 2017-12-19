@@ -20,6 +20,9 @@ class Map(object):
         coordinate = {x['idx']: (x['x'], x['y']) for x in json_l10['coordinate']}
         for point in self.point:
             point.set_coordinates(coordinate[point.idx][0], coordinate[point.idx][1])
+        point_ = {x.idx: x for x in self.point}
+        for line in self.line:
+            line.set_points(point_[line.point_idx[0]], point_[line.point_idx[1]])
         self.size = json_l10['size']
 
     def add_layer_1(self, json_l1):
